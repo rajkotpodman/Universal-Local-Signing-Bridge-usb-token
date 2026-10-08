@@ -60,6 +60,13 @@ public class Pkcs11SigningProvider : ISigningProvider
         throw new InvalidOperationException("PKCS#11 provider module is not active or token is not inserted.");
     }
 
+    public Task<System.Security.Cryptography.X509Certificates.X509Certificate2?> GetX509CertificateAsync(
+        string certificateId,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult<System.Security.Cryptography.X509Certificates.X509Certificate2?>(null);
+    }
+
     private static string? ResolvePkcs11Library(string? configuredPath)
     {
         if (!string.IsNullOrWhiteSpace(configuredPath))

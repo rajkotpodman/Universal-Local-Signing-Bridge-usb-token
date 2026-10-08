@@ -1,0 +1,10 @@
+{
+  "name": "com.universal.signing.bridge",
+  "description": "Universal Local Signing Bridge Native Messaging Host for USB Tokens & Smart Cards",
+  "path": "Bridge.Desktop.exe",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://knldjhomfdplabbcmmgbmkiahkgimneog/",
+    "chrome-extension://*/*"
+  ]
+}

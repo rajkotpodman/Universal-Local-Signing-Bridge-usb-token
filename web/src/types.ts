@@ -138,4 +138,83 @@ export interface ScanProvidersResponse {
   providers: WorldProviderStatus[];
 }
 
+export interface SmartCardReaderState {
+  readerName: string;
+  cardPresent: boolean;
+  atrHex: string | null;
+  knownCardModel: string | null;
+  status: string;
+}
+
+export interface HardwareReadersResponse {
+  totalReaders: number;
+  hasCardInserted: boolean;
+  readers: SmartCardReaderState[];
+}
+
+export interface PdfSignRequest {
+  certificateId: string;
+  pdfBase64?: string;
+  createSampleIfEmpty?: boolean;
+  enableVisualSignature?: boolean;
+  pageNumber?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  reason?: string;
+  location?: string;
+  contactInfo?: string;
+  timestampUrl?: string;
+}
+
+export interface PdfSignResponse {
+  success: boolean;
+  signedPdfBase64: string;
+  documentHashSha256: string;
+  signerSubject: string;
+  signerThumbprint: string;
+  signatureFormat: string;
+  totalBytes: number;
+  timestamp: string;
+  durationMs: number;
+  providerId: string;
+  timestampTokenBase64?: string | null;
+}
+
+export interface XmlSignRequest {
+  certificateId: string;
+  xmlContent: string;
+  signatureType?: string;
+}
+
+export interface XmlSignResponse {
+  success: boolean;
+  signedXml: string;
+  digestValueBase64: string;
+  signatureValueBase64: string;
+  signerSubject: string;
+  signerThumbprint: string;
+  signatureFormat: string;
+  timestamp: string;
+}
+
+export interface CadesSignRequest {
+  certificateId: string;
+  data: string;
+  hashAlgorithm?: string;
+  detached?: boolean;
+}
+
+export interface CadesSignResponse {
+  success: boolean;
+  signatureBase64: string;
+  signatureFormat: string;
+  digestAlgorithm: string;
+  signedContentBytes: number;
+  signerSubject: string;
+  signerThumbprint: string;
+  timestamp: string;
+}
+
 

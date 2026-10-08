@@ -18,6 +18,7 @@ public class MockSigningProvider : ISigningProvider, IDisposable
     private readonly ECDsa _ecdsa256;
     private readonly List<Certificate> _certificates = new();
     private readonly Dictionary<string, object> _keyMap = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, X509Certificate2> _x509Map = new(StringComparer.OrdinalIgnoreCase);
 
     public MockSigningProvider()
     {
@@ -56,6 +57,7 @@ public class MockSigningProvider : ISigningProvider, IDisposable
             Status: CertificateStatus.VALID
         ));
         _keyMap[id1] = _rsa2048;
+        _x509Map[id1] = cert1;
 
         // Cert 2: RSA 4096 Corporate Signer
         var req2 = new CertificateRequest(
@@ -83,6 +85,7 @@ public class MockSigningProvider : ISigningProvider, IDisposable
             Status: CertificateStatus.VALID
         ));
         _keyMap[id2] = _rsa4096;
+        _x509Map[id2] = cert2;
 
         // Cert 3: ECDSA P-256 Citizen ID
         var req3 = new CertificateRequest(
@@ -109,6 +112,7 @@ public class MockSigningProvider : ISigningProvider, IDisposable
             Status: CertificateStatus.VALID
         ));
         _keyMap[id3] = _ecdsa256;
+        _x509Map[id3] = cert3;
     }
 
     public ProviderInfo GetProviderInfo()
@@ -164,8 +168,15 @@ public class MockSigningProvider : ISigningProvider, IDisposable
         throw new InvalidOperationException("Unsupported cryptographic key type.");
     }
 
+    public Task<X509Certificate2?> GetX509CertificateAsync(string certificateId, CancellationToken cancellationToken = default)
+    {
+        _x509Map.TryGetValue(certificateId, out var cert);
+        return Task.FromResult(cert);
+    }
+
     public void Dispose()
     {
+        foreach (var c in _x509Map.Values) c.Dispose();
         _rsa2048.Dispose();
         _rsa4096.Dispose();
         _ecdsa256.Dispose();

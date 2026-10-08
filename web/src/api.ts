@@ -98,3 +98,48 @@ export async function fetchAuditLogs(limit: number = 50): Promise<AuditEntry[]> 
   if (!res.ok) throw new Error(`Audit query failed: HTTP ${res.status}`);
   return res.json();
 }
+
+export async function fetchHardwareReaders(): Promise<import('./types').HardwareReadersResponse> {
+  const res = await fetch(`${BASE_URL}/api/v1/hardware/readers`);
+  if (!res.ok) throw new Error(`Readers query failed: HTTP ${res.status}`);
+  return res.json();
+}
+
+export async function executePdfSign(req: import('./types').PdfSignRequest): Promise<import('./types').PdfSignResponse> {
+  const res = await fetch(`${BASE_URL}/api/v1/sign/pdf`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req)
+  });
+  if (!res.ok) {
+    const errorBody = await res.json().catch(() => null);
+    throw new Error(errorBody?.error?.message || `PDF sign failed: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function executeXmlSign(req: import('./types').XmlSignRequest): Promise<import('./types').XmlSignResponse> {
+  const res = await fetch(`${BASE_URL}/api/v1/sign/xml`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req)
+  });
+  if (!res.ok) {
+    const errorBody = await res.json().catch(() => null);
+    throw new Error(errorBody?.error?.message || `XML sign failed: HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function executeCadesSign(req: import('./types').CadesSignRequest): Promise<import('./types').CadesSignResponse> {
+  const res = await fetch(`${BASE_URL}/api/v1/sign/cades`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req)
+  });
+  if (!res.ok) {
+    const errorBody = await res.json().catch(() => null);
+    throw new Error(errorBody?.error?.message || `CAdES sign failed: HTTP ${res.status}`);
+  }
+  return res.json();
+}

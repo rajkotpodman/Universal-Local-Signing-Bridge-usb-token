@@ -37,3 +37,8 @@ publish/
 *.pfx
 *.p12
 !tests/**/*.pfx
+
+## Local SQLite databases
+*.db
+*.db-shm
+*.db-wal

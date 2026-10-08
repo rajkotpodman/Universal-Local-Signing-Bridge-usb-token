@@ -206,4 +206,12 @@ public class WindowsCertificateProvider : ISigningProvider
 
         return false;
     }
+
+    public Task<X509Certificate2?> GetX509CertificateAsync(string certificateId, CancellationToken cancellationToken = default)
+    {
+        if (!OperatingSystem.IsWindows()) return Task.FromResult<X509Certificate2?>(null);
+
+        var cert = FindCertificate(certificateId);
+        return Task.FromResult(cert);
+    }
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bridge.Core\Bridge.Core.csproj" />
     <ProjectReference Include="..\..\src\Bridge.Crypto\Bridge.Crypto.csproj" />
+    <ProjectReference Include="..\..\src\Bridge.Providers\Bridge.Providers.csproj" />
   </ItemGroup>
 
 </Project>

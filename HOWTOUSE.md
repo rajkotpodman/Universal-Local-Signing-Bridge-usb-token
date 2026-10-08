@@ -274,22 +274,67 @@ dotnet run --project "E:\security key\universal-signing-bridge\src\Bridge.Deskto
 
 ---
 
-## ૧૬. શોર્ટકટ સારાંશ (Quick Cheat-Sheet)
+## ૧૭. એડવાન્સ ડોક્યુમેન્ટ સાઈનિંગ સ્ટુડિયો (PDF, XML, CAdES & સ્માર્ટ કાર્ડ રીડર)
+
+આ સોફ્ટવેરમાં વિશ્વના ટોપ ૧૦ PKI પ્રોજેક્ટ્સની તમામ અત્યાધુનિક ક્ષમતાઓ ઉમેરવામાં આવી છે:
+
+### ૧. પીડીએફ દસ્તાવેજ પર સહી કરવી (PDF PAdES-BES Signing Studio)
+1. ડેશબોર્ડમાં **"Signing Test"** ટેબ પર જાઓ.
+2. ઉપર **"PDF Signing Studio (PAdES-BES)"** પસંદ કરો.
+3. તમારું સર્ટિફિકેટ પસંદ કરો.
+4. સહી કરવાનું કારણ (Reason) જેમ કે: `Digitally Approved & Verified` લખો.
+5. લોકેશન લખો (દા.ત. `Rajkot, Gujarat`).
+6. **"Embed Visual Signature Stamp"** ચેકબોક્સ ચાલુ રાખો જેથી PDF પેજ પર લીલા રંગની સહીની સ્ટેમ્પ છપાય.
+7. **"Sign & Generate PAdES PDF"** બટન પર ક્લિક કરો.
+8. થોડી જ મિલીસેકન્ડમાં તમારી સહી થઈ જશે અને **"Download Signed PDF"** બટન દબાવતાં જ સહી થયેલી નવી પીડીએફ તમારા કમ્પ્યુટરમાં સેવ થઈ જશે!
+
+### ૨. એક્સએમએલ દસ્તાવેજ પર સહી કરવી (XML XAdES-BES Signer)
+- સરકારી ઈન્વોઈસ અને જીએસટી પોર્ટલ માટે ઉપયોગી.
+- **"XML Signer (XAdES-BES)"** ટેબ પસંદ કરો.
+- તમારી XML માહિતી દાખલ કરો અને **"Sign & Envelope XML"** ક્લિક કરો.
+- સોફ્ટવેર W3C XMLDSIG અને ETSI TS 101 903 ધોરણ અનુસાર એન્વેલપ્ડ સિગ્નેચર સાથે કાયદેસરનું XML તૈયાર કરી આપશે.
+
+### ૩. CAdES-BES / PKCS#7 ડીટેચ્ડ સહી
+- મોટી ફાઈલો માટે આખી ફાઈલ બદલ્યા વગર ફક્ત તેની ક્રિપ્ટોગ્રાફિક સહી અલગ બનાવવી.
+- **"CAdES / PKCS#7 Detached"** ટેબમાં જઈને કોઈપણ ડેટાની Base64 સહી તૈયાર કરી શકાય છે.
+
+### ૪. PC/SC WinSCard સ્માર્ટ કાર્ડ રીડર બસ મોનિટરિંગ
+- `Providers` પેજ પર હવે તમને **"PC/SC WinSCard Hardware Reader Bus"** જોવા મળશે.
+- આ સુવિધા તમારા સ્માર્ટ કાર્ડ સ્લોટ, રીડરનું નામ, કાર્ડ દાખલ થયું છે કે નહીં (Card Inserted), અને તેનો **ATR (Answer to Reset)** લાઈવ બતાવે છે.
+- Aladdin eToken 5110/5300, Gemalto IDPrime, Feitian ePass2003, Watchdata ProxKey, અને YubiKey જેવા ટોકન આપમેળે ઓળખાઈ જાય છે.
+
+### ૫. ક્રોમ અને એજ બ્રાઉઝર નેટિવ મેસેજિંગ હોસ્ટ (Chrome/Edge Native Messaging)
+- બ્રાઉઝર એક્સટેન્શન સાથે સીધો અને સુરક્ષિત સંચાર કરવા માટે:
+  PowerShell માં રન કરો:
+  ```powershell
+  .\scripts\register-native-host.ps1
+  ```
+- આ સ્ક્રિપ્ટ વિન્ડોઝ રજિસ્ટ્રીમાં `com.universal.signing.bridge` હોસ્ટ રજીસ્ટર કરશે જેથી ક્રોમ કે એજ બ્રાઉઝર કોઈપણ પોર્ટ વગર સીધા પ્રોસેસ પાઈપ (Standard I/O) દ્વારા સહી કરાવી શકે.
+
+---
+
+## ૧૮. શોર્ટકટ સારાંશ (Quick Cheat-Sheet)
 
 | કામ | સરનામું / કમાન્ડ |
 | :--- | :--- |
 | **મુખ્ય ડેશબોર્ડ** | `http://127.0.0.1:8080` |
-| **વિશ્વના પ્રોવાઇડર્સ અને અલાદીન વ્યુ** | `http://127.0.0.1:8080` (Providers ટેબ) |
+| **પીડીએફ સાઈનિંગ સ્ટુડિયો** | `http://127.0.0.1:8080` (Signing Test ટેબ -> PDF) |
+| **એક્સએમએલ સાઈનર** | `http://127.0.0.1:8080` (Signing Test ટેબ -> XML) |
+| **પીસી/એસસી હાર્ડવેર રીડર્સ** | `http://127.0.0.1:8080` (Providers ટેબ) |
+| **હાર્ડવેર રીડર્સ API** | `http://127.0.0.1:8080/api/v1/hardware/readers` |
+| **PDF સાઈન API (POST)** | `http://127.0.0.1:8080/api/v1/sign/pdf` |
+| **XML સાઈન API (POST)** | `http://127.0.0.1:8080/api/v1/sign/xml` |
+| **CAdES સાઈન API (POST)** | `http://127.0.0.1:8080/api/v1/sign/cades` |
 | **અલાદીન કેટલોગ API (JSON)** | `http://127.0.0.1:8080/api/v1/providers/world-catalog` |
 | **હાર્ડવેર સ્કેન API (POST)** | `http://127.0.0.1:8080/api/v1/providers/scan` |
 | **૬-સ્ટેપ ડાયગ્નોસ્ટિક્સ** | `http://127.0.0.1:5173/diagnostics` |
-| **સહી ટેસ્ટ પેજ** | `http://127.0.0.1:5173/sign` |
 | **Swagger API ડોક્યુમેન્ટ્સ** | `http://127.0.0.1:8080/swagger` |
 | **સામાન્ય શરૂઆત (Mock Mode)** | `.\scripts\dev-start.ps1 -Mode MOCK` |
 | **અસલી ટોકન શરૂઆત (Windows Mode)**| `.\scripts\dev-start.ps1 -Mode WINDOWS` |
 | **બધા ટેસ્ટ રન કરવા** | `.\scripts\test.ps1` |
+| **નેટિવ હોસ્ટ રજીસ્ટર કરવું** | `.\scripts\register-native-host.ps1` |
 
 ---
 
-*આ માર્ગદર્શિકા Universal Local Signing Bridge પ્રોજેક્ટ માટે તૈયાર કરવામાં આવી છે. આ સોફ્ટવેર Aladdin eToken સહિત દુનિયાના તમામ ડિજિટલ હસ્તાક્ષર ટોકનને આધુનિક વેબ બ્રાઉઝર્સ સાથે જોડવાનો સૌથી સરળ, ઝડપી અને સલામત સેતુ છે.*
+*આ માર્ગદર્શિકા Universal Local Signing Bridge પ્રોજેક્ટ માટે તૈયાર કરવામાં આવી છે. આ સોફ્ટવેર Aladdin eToken સહિત દુનિયાના તમામ ડિજિટલ હસ્તાક્ષર ટોકનને આધુનિક વેબ બ્રાઉઝર્સ સાથે જોડવાનો સૌથી સરળ, ઝડપી, અત્યાધુનિક અને સલામત સેતુ છે.*
 

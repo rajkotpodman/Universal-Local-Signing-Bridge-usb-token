@@ -14,8 +14,8 @@ import {
   Info,
   Usb
 } from 'lucide-react';
-import { ProviderInfo, WorldCatalogResponse, WorldProviderStatus } from '../types';
-import { fetchWorldCatalog, scanProviders } from '../api';
+import { ProviderInfo, WorldCatalogResponse, WorldProviderStatus, HardwareReadersResponse } from '../types';
+import { fetchWorldCatalog, scanProviders, fetchHardwareReaders } from '../api';
 
 interface ProvidersViewProps {
   providers: ProviderInfo[];
@@ -23,13 +23,18 @@ interface ProvidersViewProps {
 
 export const ProvidersView: React.FC<ProvidersViewProps> = ({ providers }) => {
   const [worldCatalog, setWorldCatalog] = useState<WorldCatalogResponse | null>(null);
+  const [readersData, setReadersData] = useState<HardwareReadersResponse | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanMessage, setScanMessage] = useState<string | null>(null);
 
   const loadCatalog = async () => {
     try {
-      const data = await fetchWorldCatalog();
-      setWorldCatalog(data);
+      const [cat, rds] = await Promise.all([
+        fetchWorldCatalog(),
+        fetchHardwareReaders().catch(() => null)
+      ]);
+      setWorldCatalog(cat);
+      if (rds) setReadersData(rds);
     } catch (err) {
       console.error('Failed to load world catalog:', err);
     }
@@ -43,7 +48,11 @@ export const ProvidersView: React.FC<ProvidersViewProps> = ({ providers }) => {
     setIsScanning(true);
     setScanMessage(null);
     try {
-      const res = await scanProviders();
+      const [res, rds] = await Promise.all([
+        scanProviders(),
+        fetchHardwareReaders().catch(() => null)
+      ]);
+      if (rds) setReadersData(rds);
       setWorldCatalog({
         totalProviders: res.totalProviders,
         aladdinFamilyDetected: res.providers.some(p => p.isAladdinFamily && p.readiness === 'READY'),
@@ -53,7 +62,7 @@ export const ProvidersView: React.FC<ProvidersViewProps> = ({ providers }) => {
         attachedTokens: res.attachedTokens,
         providers: res.providers
       });
-      setScanMessage(`Scan complete: ${res.attachedTokenCount} attached hardware token(s) detected, ${res.readyProviders} provider(s) active, ${res.certificatesFound} DSC certificate(s) accessible.`);
+      setScanMessage(`Scan complete: ${rds?.totalReaders || 0} PC/SC reader(s), ${res.attachedTokenCount} attached hardware token(s) detected, ${res.readyProviders} provider(s) active.`);
     } catch (err: any) {
       setScanMessage(`Scan error: ${err.message}`);
     } finally {
@@ -173,6 +182,80 @@ export const ProvidersView: React.FC<ProvidersViewProps> = ({ providers }) => {
                     {tok.details}
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* PC/SC WinSCard Hardware Readers Section */}
+      <div className="glass-card" style={{ padding: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Cpu size={20} color="#38bdf8" />
+            <div>
+              <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: '#f8fafc' }}>
+                PC/SC WinSCard Hardware Reader Bus
+              </h3>
+              <p style={{ margin: 0, fontSize: 12, color: 'var(--text-muted)' }}>
+                Direct ISO 7816 / CCID smart card slot reader detection & ATR analysis.
+              </p>
+            </div>
+          </div>
+          <span className={`badge ${readersData?.hasCardInserted ? 'badge-success' : 'badge-secondary'}`}>
+            {readersData?.totalReaders ? `${readersData.totalReaders} Reader(s) Active` : '0 Active Readers'}
+          </span>
+        </div>
+
+        {(!readersData || readersData.readers.length === 0) ? (
+          <div style={{
+            padding: 16,
+            background: 'rgba(255, 255, 255, 0.02)',
+            borderRadius: 8,
+            border: '1px dashed rgba(255, 255, 255, 0.1)',
+            fontSize: 13,
+            color: 'var(--text-dim)',
+            textAlign: 'center'
+          }}>
+            No PC/SC smart card readers currently detected. If a USB token is connected, ensure Smart Card service (SCardSvr) is active.
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {readersData.readers.map((r, i) => (
+              <div key={i} style={{
+                background: 'rgba(0, 0, 0, 0.25)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: 8,
+                padding: 12,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: 12
+              }}>
+                <div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Reader Name</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#f8fafc', marginTop: 2 }}>{r.readerName}</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Card Presence</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: r.cardPresent ? '#34d399' : '#94a3b8', marginTop: 2 }}>
+                    {r.cardPresent ? '● Card Inserted' : '○ Slot Empty'}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Detected Model</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#38bdf8', marginTop: 2 }}>
+                    {r.knownCardModel || (r.cardPresent ? 'Generic ISO 7816 Smart Card' : 'N/A')}
+                  </div>
+                </div>
+
+                {r.atrHex && (
+                  <div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase' }}>ATR (Answer to Reset)</div>
+                    <div className="mono-text" style={{ fontSize: 11, color: '#fbbf24', marginTop: 2 }}>{r.atrHex}</div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
