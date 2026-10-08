@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Bridge.Api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bridge.Core\Bridge.Core.csproj" />
+    <ProjectReference Include="..\Bridge.Security\Bridge.Security.csproj" />
+    <ProjectReference Include="..\Bridge.Crypto\Bridge.Crypto.csproj" />
+    <ProjectReference Include="..\Bridge.Providers\Bridge.Providers.csproj" />
+    <ProjectReference Include="..\Bridge.Provider.Mock\Bridge.Provider.Mock.csproj" />
+    <ProjectReference Include="..\Bridge.Provider.Windows\Bridge.Provider.Windows.csproj" />
+    <ProjectReference Include="..\Bridge.Provider.Pkcs11\Bridge.Provider.Pkcs11.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>
