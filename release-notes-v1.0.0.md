@@ -4,17 +4,21 @@
 કોઈપણ વધારાના સોફ્ટવેર કે .NET SDK ઇન્સ્ટોલ કરવાની જરૂર નથી! આ પેકેજ સંપૂર્ણપણે સ્વનિર્ભર (Self-Contained) છે, જેમાં સંપૂર્ણ .NET 8 રનટાઇમ, ક્રિપ્ટોગ્રાફિક એન્જિન અને વેબ ડેશબોર્ડ પહેલેથી જ સમાવિષ્ટ છે. ફક્ત ડાઉનલોડ કરો અને ડબલ-ક્લિક કરીને ચાલુ કરો!
 
 ### 📥 Standalone Downloads (સંપૂર્ણ પોર્ટેબલ એપ્લિકેશન ડાઉનલોડ્સ):
-- **🪟 Windows (x64)**: [`UniversalLocalSigningBridge-Windows-x64.zip`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-Windows-x64.zip) (~145.5 MB)
-  - *સમાવેશ*: `UniversalSigningBridge.exe`, `Bridge.Api.exe`, `run.bat` (1-ક્લિક લોન્ચર), `installer/` (Inno Setup), `scripts/` (Automated Service Setup), `src/` (સંપૂર્ણ સોર્સ કોડ), `wwwroot/` (Bilingual Web Dashboard).
+- **🪟 Windows (x64)**: [`UniversalLocalSigningBridge-v1.0.0-Windows-x64-Standalone.zip`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-v1.0.0-Windows-x64-Standalone.zip) (~90.7 MB)
+  - *સમાવેશ*: `UniversalSigningBridge.exe` (Standalone Portable), `Bridge.Api.exe`, `run.bat` (1-ક્લિક લોન્ચર), `installer/` (Inno Setup), `scripts/` (Service Setup), `wwwroot/` (Bilingual Web Dashboard).
   - *વાપરવા માટે*: ઝિપ ફાઇલ અનઝિપ કરો અને `run.bat` અથવા `UniversalSigningBridge.exe` પર ડબલ-ક્લિક કરો! બ્રાઉઝર આપમેળે ખૂલશે (`http://127.0.0.1:8080`).
 
-- **🐧 Linux (Ubuntu / Debian / Fedora / RHEL / Arch - x64)**: [`UniversalLocalSigningBridge-Linux-x64.tar.gz`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-Linux-x64.tar.gz) (~137.0 MB)
-  - *સમાવેશ*: `UniversalSigningBridge`, `Bridge.Api`, `run-linux.sh` (Auto-execute launcher), `installer/universal-signing-bridge.service` (systemd user daemon), `src/` (સંપૂર્ણ સોર્સ કોડ).
-  - *વાપરવા માટે*: `tar -xzf UniversalLocalSigningBridge-Linux-x64.tar.gz && ./run-linux.sh`
+- **🐧 Linux (Ubuntu / Debian / Fedora / RHEL / Arch - x64)**: [`UniversalLocalSigningBridge-v1.0.0-Linux-x64-Standalone.tar.gz`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-v1.0.0-Linux-x64-Standalone.tar.gz) (~84.8 MB)
+  - *સમાવેશ*: `UniversalSigningBridge`, `Bridge.Api`, `run-linux.sh` (Auto-execute launcher), `installer/universal-signing-bridge.service` (systemd user daemon).
+  - *વાપરવા માટે*: `tar -xzf UniversalLocalSigningBridge-v1.0.0-Linux-x64-Standalone.tar.gz && ./run-linux.sh`
 
-- **🍏 macOS Apple Silicon (M1 / M2 / M3 / M4 - arm64)**: [`UniversalLocalSigningBridge-macOS-arm64.tar.gz`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-macOS-arm64.tar.gz) (~131.7 MB)
-  - *સમાવેશ*: Native Apple Silicon binary `UniversalSigningBridge`, `Bridge.Api`, `run-macos.sh`, `installer/com.universal.signing.bridge.plist` (launchd agent), `src/` (સંપૂર્ણ સોર્સ કોડ).
-  - *વાપરવા માટે*: `tar -xzf UniversalLocalSigningBridge-macOS-arm64.tar.gz && ./run-macos.sh`
+- **🍏 macOS Apple Silicon (M1 / M2 / M3 / M4 - arm64)**: [`UniversalLocalSigningBridge-v1.0.0-macOS-arm64-Standalone.tar.gz`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-v1.0.0-macOS-arm64-Standalone.tar.gz) (~81.1 MB)
+  - *સમાવેશ*: Native Apple Silicon binary `UniversalSigningBridge`, `Bridge.Api`, `run-macos.sh`, `installer/com.universal.signing.bridge.plist` (launchd agent).
+  - *વાપરવા માટે*: `tar -xzf UniversalLocalSigningBridge-v1.0.0-macOS-arm64-Standalone.tar.gz && ./run-macos.sh`
+
+- **💻 macOS Intel (x64)**: [`UniversalLocalSigningBridge-v1.0.0-macOS-x64-Standalone.tar.gz`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-v1.0.0-macOS-x64-Standalone.tar.gz) (~84.5 MB)
+  - *સમાવેશ*: Native Intel Mac binary `UniversalSigningBridge`, `Bridge.Api`, `run-macos.sh`.
+  - *વાપરવા માટે*: `tar -xzf UniversalLocalSigningBridge-v1.0.0-macOS-x64-Standalone.tar.gz && ./run-macos.sh`
 
 - **📁 Full Source Code Archive**: [`UniversalLocalSigningBridge-v1.0.0-SourceCode.zip`](https://github.com/rajkotpodman/Universal-Local-Signing-Bridge-usb-token/releases/download/v1.0.0/UniversalLocalSigningBridge-v1.0.0-SourceCode.zip)
 
