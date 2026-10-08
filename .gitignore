@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 
 ## Local Publish and Archives
 publish/
+release-v1.0.0/
 *.zip
 *.7z
 *.tar.gz

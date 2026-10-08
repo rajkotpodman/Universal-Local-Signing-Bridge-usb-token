@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.universal.signing.bridge</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/Shared/universal-signing-bridge/UniversalSigningBridge</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/Shared/universal-signing-bridge</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>ASPNETCORE_URLS</key>
+        <string>http://127.0.0.1:8080</string>
+        <key>BRIDGE_MODE</key>
+        <string>PKCS11</string>
+        <key>PORT</key>
+        <string>8080</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/tmp/universal-signing-bridge.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/universal-signing-bridge.err</string>
+</dict>
+</plist>

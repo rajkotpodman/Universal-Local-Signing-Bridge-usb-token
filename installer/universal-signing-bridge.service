@@ -1,0 +1,17 @@
+[Unit]
+Description=Universal Local Signing Bridge Service
+After=network.target pcscd.service
+Wants=pcscd.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/universal-signing-bridge/UniversalSigningBridge
+WorkingDirectory=%h/.local/share/universal-signing-bridge
+Restart=on-failure
+RestartSec=5
+Environment=ASPNETCORE_URLS=http://127.0.0.1:8080
+Environment=BRIDGE_MODE=PKCS11
+Environment=PORT=8080
+
+[Install]
+WantedBy=default.target

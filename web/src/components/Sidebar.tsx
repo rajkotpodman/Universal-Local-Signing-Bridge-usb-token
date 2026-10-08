@@ -12,6 +12,8 @@ import {
   Shield
 } from 'lucide-react';
 
+import { useLanguage } from '../context/LanguageContext';
+
 interface SidebarProps {
   activeTab: string;
   onSelectTab: (tab: string) => void;
@@ -19,16 +21,18 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab, mockMode }) => {
+  const { t } = useLanguage();
+
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'certificates', label: 'Certificates', icon: KeyRound },
-    { id: 'providers', label: 'Providers', icon: Layers },
-    { id: 'sign', label: 'Signing Test', icon: PenTool },
-    { id: 'diagnostics', label: 'Browser Diagnostics', icon: Stethoscope },
-    { id: 'security', label: 'Security', icon: ShieldCheck },
-    { id: 'audit', label: 'Audit Logs', icon: FileText },
-    { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'about', label: 'About', icon: Info },
+    { id: 'dashboard', label: t('dashboard'), icon: LayoutDashboard },
+    { id: 'certificates', label: t('certificates'), icon: KeyRound },
+    { id: 'providers', label: t('providers'), icon: Layers },
+    { id: 'sign', label: t('sign'), icon: PenTool },
+    { id: 'diagnostics', label: t('diagnostics'), icon: Stethoscope },
+    { id: 'security', label: t('security'), icon: ShieldCheck },
+    { id: 'audit', label: t('audit'), icon: FileText },
+    { id: 'settings', label: t('settings'), icon: Settings },
+    { id: 'about', label: t('about'), icon: Info },
   ];
 
   return (
