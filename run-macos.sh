@@ -15,9 +15,25 @@ echo ""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-if ! command -v dotnet &> /dev/null && [ ! -f "./UniversalSigningBridge" ]; then
-    echo "[!] Error: .NET 8 runtime is not installed."
-    echo "[*] Install with Homebrew: brew install dotnet"
+# Check for standalone binary first (Zero prerequisites needed!)
+if [ -f "./UniversalSigningBridge" ]; then
+    echo "[*] Launching portable standalone UniversalSigningBridge ..."
+    chmod +x ./UniversalSigningBridge 2>/dev/null || true
+    (sleep 2 && open "http://127.0.0.1:8080" 2>/dev/null || true) &
+    ./UniversalSigningBridge
+    exit 0
+elif [ -f "./Bridge.Api" ]; then
+    echo "[*] Launching portable standalone Bridge.Api ..."
+    chmod +x ./Bridge.Api 2>/dev/null || true
+    (sleep 2 && open "http://127.0.0.1:8080" 2>/dev/null || true) &
+    ./Bridge.Api
+    exit 0
+fi
+
+# Fallback: check dotnet
+if ! command -v dotnet &> /dev/null; then
+    echo "[!] Error: Neither standalone binary nor .NET 8 runtime was found."
+    echo "[*] Download the standalone release or install with Homebrew: brew install dotnet"
     exit 1
 fi
 
@@ -30,9 +46,7 @@ echo "[*] Launching Universal Signing Bridge on http://127.0.0.1:8080 ..."
 # Open browser in background after 2 seconds
 (sleep 2 && open "http://127.0.0.1:8080" 2>/dev/null || true) &
 
-if [ -f "./UniversalSigningBridge" ]; then
-    ./UniversalSigningBridge
-elif [ -f "src/Bridge.Api/Bridge.Api.csproj" ]; then
+if [ -f "src/Bridge.Api/Bridge.Api.csproj" ]; then
     dotnet run --project "src/Bridge.Api/Bridge.Api.csproj"
 else
     echo "[!] Executable or project not found."

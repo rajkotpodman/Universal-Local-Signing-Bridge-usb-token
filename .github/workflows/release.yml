@@ -81,19 +81,29 @@ jobs:
           -c Release
           -r ${{ matrix.target }}
           -p:EnableWindowsTargeting=true
-          --self-contained false
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
           -o release-bundle
 
-      - name: Copy Launcher Scripts and Documentation
+      - name: Copy Launcher Scripts, Aliases and Documentation
         shell: bash
         run: |
           cp -r scripts release-bundle/scripts || true
           cp -r installer release-bundle/installer || true
+          cp -r src release-bundle/src || true
           cp run.bat release-bundle/run.bat || true
           cp run-linux.sh release-bundle/run-linux.sh || true
           cp run-macos.sh release-bundle/run-macos.sh || true
           cp HOWTOUSE.md release-bundle/HOWTOUSE.md || true
           cp README.md release-bundle/README.md || true
+          if [ -f "release-bundle/Bridge.Api.exe" ]; then
+            cp release-bundle/Bridge.Api.exe release-bundle/UniversalSigningBridge.exe || true
+          fi
+          if [ -f "release-bundle/Bridge.Api" ]; then
+            cp release-bundle/Bridge.Api release-bundle/UniversalSigningBridge || true
+            chmod +x release-bundle/Bridge.Api release-bundle/UniversalSigningBridge release-bundle/*.sh || true
+          fi
 
       - name: Create Zip Archive (Windows)
         if: matrix.archive_format == 'zip'
